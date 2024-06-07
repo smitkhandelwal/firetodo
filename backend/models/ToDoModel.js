@@ -5,6 +5,11 @@ const toDoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+  status:{
+    type: Boolean,
+    default: false,
+  },
+  }
+);
 
 module.exports = mongoose.model("ToDo", toDoSchema);

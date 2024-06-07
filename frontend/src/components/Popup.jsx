@@ -5,10 +5,11 @@ import { baseURL } from "../utils/constant";
 
 const Popup = ({ setShowPopup, popupContent, setUpdateUI }) => {
   const [input, setInput] = useState(popupContent.text);
+  const [status, setStatus] = useState(popupContent.status);
 
   const updateToDo = () => {
     axios
-      .put(`${baseURL}/update/${popupContent.id}`, { toDo: input })
+      .put(`${baseURL}/update/${popupContent.id}`, { toDo: input,status: status})
       .then((res) => {
         console.log(res.data);
         setUpdateUI((prevState) => !prevState);
@@ -28,6 +29,12 @@ const Popup = ({ setShowPopup, popupContent, setUpdateUI }) => {
             onChange={(e) => setInput(e.target.value)}
             type="text"
             placeholder="Update ToDo..."
+          />
+          
+          <input
+            checked={status} 
+            onChange={(e) => setStatus(e.target.checked)} 
+            type="checkbox"
           />
           <button onClick={updateToDo}>Update</button>
         </div>

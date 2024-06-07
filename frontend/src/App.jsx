@@ -20,7 +20,7 @@ const App = () => {
 
   const saveToDo = () => {
     axios
-      .post(`${baseURL}/save`, { toDo: input })
+      .post(`${baseURL}/save`, { toDo: input,status:false })
       .then((res) => {
         console.log(res.data);
         setUpdateUI((prevState) => !prevState);
@@ -28,6 +28,15 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  const searchTodo=()=>{
+    console.log('finding:'+input);
+    let nto=toDos.filter((todo)=>{
+      console.log(todo.toDo+" compared with "+input);
+      return todo.toDo.includes(input);
+    });
+      setToDos(nto);
+  }
 
   return (
     <main>
@@ -42,13 +51,17 @@ const App = () => {
             placeholder="Add a ToDo..."
           />
           <button onClick={saveToDo}>Add</button>
+          <button onClick={searchTodo}>Find</button>
         </div>
+
+        
 
         <div className="list">
           {toDos.map((el) => (
             <ToDo
               key={el._id}
               text={el.toDo}
+              status={el.status}
               id={el._id}
               setUpdateUI={setUpdateUI}
               setShowPopup={setShowPopup}

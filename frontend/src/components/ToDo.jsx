@@ -4,7 +4,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { baseURL } from "../utils/constant";
 
-const ToDo = ({ text, id, setUpdateUI, setShowPopup, setPopupContent }) => {
+const ToDo = ({ text,status, id, setUpdateUI, setShowPopup, setPopupContent }) => {
   const deleteTodo = () => {
     axios.delete(`${baseURL}/delete/${id}`).then((res) => {
       console.log(res.data);
@@ -13,13 +13,15 @@ const ToDo = ({ text, id, setUpdateUI, setShowPopup, setPopupContent }) => {
   };
 
   const updateToDo = () => {
-    setPopupContent({ text, id });
+    setPopupContent({ text,status, id });
     setShowPopup(true);
   };
 
   return (
     <div className="toDo">
       {text}
+      <br />
+      {status? 'completed': 'pending'}
       <div className="icons">
         <AiFillEdit className="icon" onClick={updateToDo} />
         <RxCross1 className="icon" onClick={deleteTodo} />

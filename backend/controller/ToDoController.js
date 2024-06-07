@@ -20,16 +20,17 @@ module.exports.saveToDo = (req, res) => {
 };
 
 module.exports.updateToDo = (req, res) => {
+  console.log('req.body\t',req.body);
+  console.log('req.params\t',req.params);
   const { id } = req.params;
-  const { toDo } = req.body;
-
-  ToDoModel.findByIdAndUpdate(id, { toDo })
+  const { toDo,status } = req.body;
+  ToDoModel.findByIdAndUpdate(id, { toDo,status })
     .then(() => {
       res.send("Updated Successfully....");
     })
     .catch((err) => {
       console.log(err);
-      res.send({ error: err, msg: "Something went wrong!" });
+      res.send({ error: err, msg: "Something went wrong-server!" });
     });
 };
 
