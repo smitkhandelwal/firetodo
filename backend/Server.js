@@ -8,13 +8,12 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Middleware
+const DB_URI = process.env.DB_URI;
 app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect(`mongodb+srv://smit:ipass@cluster0.wtjn8.mongodb.net/todo`)
+  .connect(DB_URI)
   .then(() => console.log("MongoDB connected..."))
   .catch((err) => console.log(err));
 
